@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>面试备考 - 面试备考助手</title>
+    <link rel="stylesheet" href="/static/interview.css?v=4.0">
+    <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+</head>
+<body>
+    <div class="app-layout">
+        <!-- 顶部导航 -->
+        <header class="header">
+            <div class="header-left">
+                <a href="/" class="back-link">← 返回首页</a>
+                <h1>面试备考</h1>
+            </div>
+        </header>
+
+        <!-- 主内容 -->
+        <main class="main-content">
+            <!-- 步骤1: 上传简历 -->
+            <section class="step active" id="stepUpload">
+                <div class="step-header">
+                    <span class="step-num">1</span>
+                    <h2>上传简历</h2>
+                </div>
+                <div class="upload-zone" id="uploadZone">
+                    <div class="upload-icon">
+                        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M24 32V12M16 20l8-8 8 8M6 32v8a4 4 0 004 4h28a4 4 0 004-4v-8"/>
+                        </svg>
+                    </div>
+                    <p class="upload-text">拖拽 PDF 简历到此处，或 <span class="upload-link" id="browseLink">选择文件</span></p>
+                    <p class="upload-hint">仅支持 PDF 格式，最大 10MB</p>
+                    <input type="file" id="fileInput" accept=".pdf" hidden>
+                </div>
+                <div class="upload-progress" id="uploadProgress" style="display:none">
+                    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+                    <p id="progressText">上传中...</p>
+                </div>
+            </section>
+
+            <!-- 步骤2: AI解析 -->
+            <section class="step" id="stepParsing">
+                <div class="step-header">
+                    <span class="step-num">2</span>
+                    <h2>AI 解析简历</h2>
+                </div>
+                <div class="loading-box">
+                    <div class="spinner"></div>
+                    <p>正在解析简历内容，请稍候...</p>
+                </div>
+            </section>
+
+            <!-- 步骤3: 岗位匹配 -->
+            <section class="step" id="stepMatch">
+                <div class="step-header">
+                    <span class="step-num">3</span>
+                    <h2>岗位匹配</h2>
+                </div>
+                <div class="match-content">
+                    <!-- 简历摘要 -->
+                    <div class="card" id="resumeCard">
+                        <h3>简历信息</h3>
+                        <div id="resumeInfo"></div>
+                    </div>
+                    <!-- 岗位推荐 -->
+                    <h3 class="section-title">推荐岗位 <small>（选择一个开始面试）</small></h3>
+                    <div class="job-list" id="jobList"></div>
+                    <div class="actions">
+                        <button class="btn primary" id="startBtn" disabled>开始面试</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 步骤4: 面试进行中 -->
+            <section class="step" id="stepInterview">
+                <div class="step-header">
+                    <span class="step-num">4</span>
+                    <h2>模拟面试 <span class="job-badge" id="jobBadge"></span></h2>
+                </div>
+                <!-- 进度条 -->
+                <div class="interview-progress">
+                    <div class="progress-bar"><div class="progress-fill" id="interviewProgressFill"></div></div>
+                    <span id="interviewProgressText">1/10</span>
+                </div>
+                <!-- 题目 -->
+                <div class="question-card" id="questionCard">
+                    <div class="q-header">
+                        <span class="q-type-badge" id="qTypeBadge">八股文</span>
+                        <a id="leetcodeLink" class="leetcode-link" href="#" target="_blank" style="display:none">
+                            <svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8zm7-5.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11zM8 4a.75.75 0 0 1 .75.75v2.5h2.5a.75.75 0 0 1 0 1.5h-2.5v2.5a.75.75 0 0 1-1.5 0v-2.5h-2.5a.75.75 0 0 1 0-1.5h2.5v-2.5A.75.75 0 0 1 8 4z"/></svg>
+                            力扣原题
+                        </a>
+                    </div>
+                    <p class="q-text" id="qText"></p>
+                </div>
+                <!-- 回答输入 -->
+                <div class="answer-area" id="answerArea">
+                    <textarea id="answerInput" placeholder="在这里输入你的回答..." rows="6" maxlength="5000"></textarea>
+                    <div class="answer-footer">
+                        <span class="char-count"><span id="charCount">0</span>/5000</span>
+                        <button class="btn outline" id="skipBtn">跳过</button>
+                        <button class="btn primary" id="submitBtn">提交回答</button>
+                    </div>
+                </div>
+                <!-- 评分反馈 -->
+                <div class="feedback-card" id="feedbackCard" style="display:none">
+                    <div class="score-circle" id="scoreCircle">
+                        <span class="score-num" id="scoreNum">0</span>
+                        <span class="score-label">分</span>
+                    </div>
+                    <p class="feedback-text" id="feedbackText"></p>
+                    <div class="sw-list">
+                        <div class="strengths" id="strengthsList"></div>
+                        <div class="weaknesses" id="weaknessesList"></div>
+                    </div>
+                    <div class="actions">
+                        <button class="btn primary" id="nextBtn">下一题</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 步骤5: 报告 -->
+            <section class="step" id="stepReport">
+                <div class="step-header">
+                    <span class="step-num">5</span>
+                    <h2>面试报告</h2>
+                </div>
+                <div class="loading-box" id="reportLoading">
+                    <div class="spinner"></div>
+                    <p>正在生成评分报告...</p>
+                </div>
+                <div class="report-container" id="reportContainer" style="display:none"></div>
+                <div class="actions" id="reportActions" style="display:none">
+                    <button class="btn outline" id="downloadBtn">下载报告</button>
+                    <button class="btn primary" id="restartBtn">重新开始</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/interview.js?v=4.0"></script>
+</body>
+</html>

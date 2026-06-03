@@ -1,0 +1,372 @@
+/* 面试备考页面样式 - 极简浅蓝色主题 */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --primary: #2080f0;
+    --primary-light: #e8f3ff;
+    --bg: #f5f7fa;
+    --card-bg: #ffffff;
+    --text: #1a1a2e;
+    --text-secondary: #6b7280;
+    --border: #e5e7eb;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --radius: 12px;
+    --shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+.app-layout {
+    max-width: 760px;
+    margin: 0 auto;
+    min-height: 100vh;
+    padding: 0 20px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+}
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.back-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 14px;
+}
+.back-link:hover { text-decoration: underline; }
+.header h1 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* Step */
+.step { display: none; }
+.step.active { display: block; }
+
+.step-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+.step-num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+.step-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Upload Zone */
+.upload-zone {
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 48px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--card-bg);
+}
+.upload-zone:hover, .upload-zone.dragover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+}
+.upload-icon {
+    width: 48px; height: 48px;
+    margin: 0 auto 16px;
+    color: var(--primary);
+}
+.upload-text { font-size: 16px; margin-bottom: 8px; }
+.upload-link { color: var(--primary); font-weight: 500; cursor: pointer; }
+.upload-hint { font-size: 13px; color: var(--text-secondary); }
+
+/* Progress Bar */
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+}
+.progress-fill {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 3px;
+    transition: width 0.3s;
+    width: 0%;
+}
+.upload-progress, .interview-progress {
+    margin: 16px 0;
+}
+.interview-progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.interview-progress span {
+    font-size: 13px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+/* Card */
+.card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+}
+.card h3 { font-size: 16px; margin-bottom: 12px; }
+
+.section-title {
+    font-size: 16px;
+    margin: 20px 0 12px;
+}
+.section-title small { font-weight: 400; color: var(--text-secondary); }
+
+/* Job List */
+.job-list { display: flex; flex-direction: column; gap: 12px; }
+.job-card {
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.job-card:hover { border-color: var(--primary); }
+.job-card.selected { border-color: var(--primary); background: var(--primary-light); }
+.job-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.job-score {
+    display: inline-block;
+    background: var(--primary-light);
+    color: var(--primary);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-left: 8px;
+}
+.job-reason { font-size: 14px; color: var(--text-secondary); margin-top: 8px; }
+.job-skills { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+.skill-tag {
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: #f0f0f0;
+    color: var(--text-secondary);
+}
+.skill-tag.match { background: #d1fae5; color: #059669; }
+.skill-tag.missing { background: #fee2e2; color: #dc2626; }
+
+/* Button */
+.btn {
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+}
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn.primary { background: var(--primary); color: #fff; }
+.btn.primary:hover:not(:disabled) { background: #1a6fe0; }
+.btn.outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+.btn.outline:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
+.actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+/* Loading */
+#loadingOverlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.85);
+    z-index: 9999;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#loadingOverlay .loading-msg {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-top: 12px;
+    text-align: center;
+    padding: 0 20px;
+}
+.loading-box {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-secondary);
+}
+.spinner {
+    width: 36px; height: 36px;
+    border: 3px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Question */
+.question-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+}
+.q-type-badge {
+    display: inline-block;
+    background: var(--primary-light);
+    color: var(--primary);
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+/* 四种题型颜色 */
+.q-type-bagu { background: #e8f3ff; color: #2080f0; }
+.q-type-scenario { background: #fdf2f8; color: #db2777; }
+.q-type-project { background: #f0fdf4; color: #16a34a; }
+.q-type-algorithm { background: #fef3c7; color: #d97706; }
+.q-type-technical { background: var(--primary-light); color: var(--primary); }
+.q-type-behavioral { background: #fce7f3; color: #db2777; }
+.q-type-comprehensive { background: #f3e8ff; color: #7c3aed; }
+
+/* 题目头部布局 */
+.q-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+/* 力扣链接 */
+.leetcode-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #fef3c7;
+    color: #d97706;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+.leetcode-link:hover { background: #fde68a; }
+.leetcode-link svg { flex-shrink: 0; }
+
+.q-text { font-size: 16px; line-height: 1.8; }
+
+.job-badge {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+/* Answer */
+.answer-area textarea {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.answer-area textarea:focus { border-color: var(--primary); }
+.answer-footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+.char-count { font-size: 13px; color: var(--text-secondary); }
+.answer-footer .btn { margin-left: auto; }
+
+/* Feedback */
+.feedback-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+.score-circle {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    background: var(--primary-light);
+}
+.score-num { font-size: 28px; font-weight: 700; color: var(--primary); }
+.score-label { font-size: 12px; color: var(--primary); }
+.feedback-text { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; text-align: left; }
+.sw-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; text-align: left; margin-bottom: 16px; }
+.sw-list h4 { font-size: 14px; margin-bottom: 6px; }
+.sw-list ul { list-style: none; padding: 0; }
+.sw-list li { font-size: 13px; padding: 2px 0; color: var(--text-secondary); }
+.strengths h4 { color: var(--success); }
+.weaknesses h4 { color: var(--warning); }
+
+/* Report */
+.report-container {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+    line-height: 1.8;
+}
+.report-container h2 { font-size: 20px; margin: 20px 0 10px; }
+.report-container h3 { font-size: 16px; margin: 16px 0 8px; }
+.report-container p { margin: 8px 0; }
+.report-container ul, .report-container ol { padding-left: 24px; margin: 8px 0; }
+
+/* Resume Info */
+#resumeInfo p { margin: 6px 0; font-size: 14px; }
+#resumeInfo .label { color: var(--text-secondary); margin-right: 8px; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
