@@ -121,6 +121,3 @@ app/
 └── main.py                 # 应用入口
 ```
 
-## 许可证
-
-MIT License
